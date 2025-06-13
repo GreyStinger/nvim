@@ -9,5 +9,10 @@ return {
       vim.g.highlightedyank_highlight_in_visual = 100
     end,
     lazy = false
+  },
+  {
+    "marks.nvim",
+    lazy = false,
+    opts = {}
   }
 }
