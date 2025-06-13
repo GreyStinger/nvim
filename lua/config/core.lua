@@ -15,7 +15,7 @@ vim.opt.relativenumber = true
 vim.opt.scrolloff = 2
 vim.opt.sidescrolloff = 8
 vim.opt.showmode = true -- Dont show mode since we have a statusline
-vim.opt.title = true
+vim.opt.title = false -- tmux makes it far too long
 vim.opt.wildmenu = true
 vim.opt.signcolumn = "yes:2" -- Always show the signcolumn
 vim.opt.smoothscroll = true
@@ -35,6 +35,7 @@ vim.opt.errorbells = false
 vim.opt.visualbell = true
 vim.opt.laststatus = 2
 vim.opt.foldenable = false
+vim.opt.clipboard = "unnamedplus"
 
 vim.cmd("filetype plugin on")
 vim.cmd("filetype plugin indent on")
@@ -42,35 +43,27 @@ vim.cmd("filetype plugin indent on")
 vim.keymap.set("n", "<leader>q", function() vim.cmd("q") end, { noremap = true })
 vim.keymap.set("n", "<Esc>", function() vim.cmd("nohlsearch") end)
 
+local function format_saving_pos(formatter)
+  local save_view = vim.fn.winsaveview()
+  vim.cmd('%! ' .. formatter)  -- Execute formatter on entire buffer
+  vim.fn.winrestview(save_view)
+end
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'nix',
+  callback = function(args)
+    vim.keymap.set('n', '<leader>ff', function()
+      format_saving_pos('nixfmt')
+    end, {
+      silent = true,
+      buffer = args.buf,  -- map only to local buffer
+      desc = "[F]ormat [F]ile"
+    })
+  end
+})
+
 -- vim.opt.termguicolors = true
--- vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
-
--- vim.opt.wildmode = "longest,list"
--- vim.opt.foldlevel = 99
--- vim.opt.foldtext = ""
-
--- vim.opt.syntax = "on"
-
 -- vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
 -- 
 -- -- Terminal mode options
 -- vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true })
--- 
--- local map = vim.keymap.set
--- 
--- -- Tab Management
--- map("n", "<M-l>", "<cmd>tabnext<CR>", {noremap=true, desc="Navigate Tab Right"})
--- map("n", "<M-h>", "<cmd>tabNext<CR>", {noremap=true, desc="Navigate Tab Left"})
--- 
--- -- Buffer execute singular
--- map("n", "<leader>bd", function()
---   if vim.bo.modified then
---     print("Buffer has unsaved changes")
---   else
---     vim.cmd('bdelete')
---   end
--- end, { noremap = true, silent = true })
--- 
--- -- Fix markdown indentation settings
--- vim.g.markdown_recommended_style = 0
-
