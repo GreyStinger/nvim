@@ -1,7 +1,7 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    lazy = false,
+    event = "BufReadPre",
     build = ":TSUpdate",
     opts = {
       ensure_installed = { "nix", "c", "cpp", "cmake", "lua", "markdown" },
@@ -22,16 +22,26 @@ return {
     }
   }, {
     "nvim-telescope/telescope.nvim",
-    lazy = false,
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {},
     -- TODO: Map more keys
     keys = {
       {
+        "<leader>sh",
+        function() require("telescope.builtin").help_tags() end,
+        "n",
+        desc = "[S]earch [H]elp"
+      }, {
         "<leader>sf",
         function() require("telescope.builtin").find_files() end,
         "n",
         desc = "[S]earch [F]iles"
+      }, {
+        "<leader>si",
+        function()
+          require('telescope.builtin').find_files({ hidden = true })
+        end,
+        desc = "[S]earch Files ([i]gnored included)"
       }, {
         "<leader>sg",
         function() require("telescope.builtin").live_grep() end,
@@ -43,16 +53,41 @@ return {
         "n",
         desc = "Search Buffers"
       }, {
+        "<leader>ss",
+        function() require("telescope.builtin").builtin() end,
+        "n",
+        desc = "[S]earch [S]elect Telescope"
+      }, {
         "<leader>sk",
         function() require("telescope.builtin").keymaps() end,
         "n",
         desc = "[S]earch [K]eys"
+      }, {
+        "<leader>s.",
+        function() require("telescope.builtin").oldfiles() end,
+        "n",
+        desc = "[S]earch Recent Files (\".\" for repeat)"
+      }, {
+        "<leader>sw",
+        function() require("telescope.builtin").grep_string() end,
+        "n",
+        desc = "[S]earch current [W]ord"
+      }, {
+        "<leader>sr",
+        function() require("telescope.builtin").resume() end,
+        "n",
+        desc = "[S]earch [R]esume"
+      }, {
+        "<leader>sd",
+        function() require('telescope.builtin').diagnostics() end,
+        desc = "[S]earch [D]iagnostics"
       }
     }
   }, {
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    lazy = false,
+    lazy = vim.fn.argc() == 0 or
+      vim.fn.isdirectory(vim.fn.getcwd() .. "/" .. vim.fn.argv(-1)[1]) == 0,
     init = function()
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
@@ -64,11 +99,32 @@ return {
       renderer = { group_empty = true },
       filters = { dotfiles = true }
     },
-    -- TODO: Map keys
-    keys = {}
+    keys = {
+      {
+        "<leader>ee",
+        function() vim.cmd("NvimTreeToggle") end,
+        "n",
+        desc = "Toggle Nvim Tree"
+      }, {
+        "<leader>ef",
+        function() vim.cmd("NvimTreeFindFileToggle") end,
+        "n",
+        desc = "Toggle Nvim Tree Find File"
+      }, {
+        "<leader>ec",
+        function() vim.cmd("NvimTreeCollapse") end,
+        "n",
+        desc = "Collapse File Explorer"
+      }, {
+        "<leader>er",
+        function() vim.cmd("NvimTreeRefresh") end,
+        "n",
+        desc = "Refresh File Explorer"
+      }
+    }
   }, {
     "lewis6991/gitsigns.nvim",
-    lazy = false,
+    event = "BufReadPost",
     opts = {
       signs = {
         add = { text = '┃' },

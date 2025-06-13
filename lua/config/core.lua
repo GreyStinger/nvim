@@ -49,6 +49,20 @@ vim.keymap
   .set("n", "<leader>q", function() vim.cmd("q") end, { noremap = true })
 vim.keymap.set("n", "<Esc>", function() vim.cmd("nohlsearch") end)
 
+-- Ctrl S even though I never use it anymore
+vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", function() vim.cmd("w") end,
+               { desc = "Save File" })
+
+-- Make sigle line navigation default
+local function better_move(direction)
+  return vim.v.count == 0 and "g" .. direction or direction
+end
+vim.keymap.set({ "n", "x" }, "j", function() return better_move("j") end,
+               { desc = "Down", expr = true, silent = true })
+vim.keymap.set({ "n", "x" }, "k", function() return better_move("k") end,
+               { desc = "Up", expr = true, silent = true })
+
+-- NOTE: Perhaps we use neoformat to replace this?
 -- Small helper function for formatting
 local function format_saving_pos(formatter)
   local save_view = vim.fn.winsaveview()
@@ -101,8 +115,5 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
--- vim.opt.termguicolors = true
--- vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
--- 
 -- -- Terminal mode options
 -- vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true })
