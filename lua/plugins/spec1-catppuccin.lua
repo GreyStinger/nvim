@@ -3,23 +3,20 @@ return {
   name = "catppuccin",
   priority = 1000,
   lazy = false,
-  config = function (_, opts)
+  config = function(_, opts)
     require("catppuccin").setup(opts)
     vim.cmd.colorscheme "catppuccin"
   end,
   opts = {
     flavour = "mocha",
-    background = {
-      light = "latte",
-      dark = "mocha",
-    },
+    background = { light = "latte", dark = "mocha" },
     transparent_background = false,
     show_end_of_buffer = true,
     term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
     dim_inactive = {
       enabled = true, -- inactive windows
       shade = "dark",
-      percentage = 0.15,
+      percentage = 0.15
     },
     no_italic = false, -- Force no italic
     no_bold = false, -- Force no bold
@@ -36,7 +33,7 @@ return {
       booleans = {},
       properties = {},
       types = {},
-      operators = {},
+      operators = {}
       -- miscs = {}, -- Uncomment to turn off hard-coded styles
     },
     color_overrides = {},
@@ -45,9 +42,7 @@ return {
     integrations = { -- (https://github.com/catppuccin/nvim#integrations)
       nvimtree = true,
       treesitter = true,
-      telescope = {
-        enabled = true,
-      },
-    },
-  },
+      telescope = { enabled = true }
+    }
+  }
 }

@@ -1,4 +1,4 @@
-vim.cmd('set notimeout')  -- Safety net
+vim.cmd('set notimeout') -- Safety net
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
