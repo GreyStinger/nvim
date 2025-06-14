@@ -8,6 +8,7 @@ vim.opt.background = "dark"
 vim.opt.hidden = true
 vim.opt.hlsearch = true
 vim.opt.mouse = "a"
+vim.opt.ignorecase = true -- Ignore case
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 2
@@ -18,13 +19,17 @@ vim.opt.wildmenu = true
 vim.opt.signcolumn = "yes:2" -- Always show the signcolumn
 vim.opt.smoothscroll = true
 vim.opt.shiftwidth = 4
+vim.opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.spelllang = { "en" }
 vim.opt.swapfile = false
 vim.opt.tabstop = 4
+vim.opt.wrap = true
 vim.opt.expandtab = true
 vim.opt.smarttab = true
+vim.opt.smartindent = true -- Insert indents automatically
+vim.opt.smartcase = true -- Don't ignore case with capitals
 vim.opt.softtabstop = 4
 vim.opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
 vim.opt.undolevels = 10000
@@ -41,6 +46,16 @@ vim.opt.listchars = {
   leadmultispace = '·┊'
 }
 vim.opt.list = true
+vim.opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
+vim.opt.grepformat = "%f:%l:%c:%m"
+vim.opt.grepprg = "rg --vimgrep"
 
 vim.cmd("filetype plugin on")
 vim.cmd("filetype plugin indent on")

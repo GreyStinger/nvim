@@ -21,10 +21,14 @@ return {
       }
     }
   }, {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    lazy = false,
+    opts = { options = { theme = "catppuccin" } }
+  }, {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {},
-    -- TODO: Map more keys
     keys = {
       {
         "<leader>sh",
@@ -81,6 +85,18 @@ return {
         "<leader>sd",
         function() require('telescope.builtin').diagnostics() end,
         desc = "[S]earch [D]iagnostics"
+      }, {
+        "<leader>sGb",
+        function() require('telescope.builtin').git_status() end,
+        desc = "[S]earch [G]it [S]tatus"
+      }, {
+        "<leader>sGb",
+        function() require('telescope.builtin').git_branches() end,
+        desc = "[S]earch [G]it [B]ranches"
+      }, {
+        "<leader>sGc",
+        function() require('telescope.builtin').git_commits() end,
+        desc = "[S]earch [G]it [C]ommits"
       }
     }
   }, {
@@ -170,6 +186,18 @@ return {
         relative = 'cursor',
         row = 0,
         col = 1
+      }
+    }
+  }, {
+    "folke/which-key.nvim",
+    dependencies = { "echasnovski/mini.icons", "nvim-tree/nvim-web-devicons" },
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      {
+        "<leader>?",
+        function() require("which-key").show({ global = false }) end,
+        desc = "Buffer Local Keymaps (which-key)"
       }
     }
   }

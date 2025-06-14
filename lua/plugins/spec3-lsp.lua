@@ -44,7 +44,47 @@ return {
         vim.lsp.config(server, config)
       end
     end,
-    keys = {}
+    keys = {
+      {
+        'gD',
+        function() vim.lsp.buf.declaration() end,
+        "n",
+        desc = "Goto Declaration"
+      },
+      {
+        "gd",
+        function() vim.lsp.buf.definition() end,
+        "n",
+        desc = "Goto Definition"
+      },
+      {
+        'gr',
+        function() vim.lsp.buf.references() end,
+        "n",
+        desc = "List References"
+      }, {
+        'gi',
+        function() vim.lsp.buf.implementation() end,
+        "n",
+        desc = "Goto implementation"
+      },
+      {
+        '<leader>ar',
+        function() vim.lsp.buf.rename() end,
+        "n",
+        desc = "Rename all"
+      }, {
+        '<leader>ai',
+        function() vim.lsp.buf.incoming_calls() end,
+        "n",
+        desc = "List all incoming calls"
+      }, {
+        '<leader>ao',
+        function() vim.lsp.buf.outgoing_calls() end,
+        "n",
+        desc = "list all outgoing calls"
+      }
+    }
   }, {
     "hrsh7th/nvim-cmp",
     event = "BufReadPost",
