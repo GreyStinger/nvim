@@ -1,5 +1,5 @@
 return {
-  { "tpope/vim-sleuth", lazy = false },
+  { "tpope/vim-sleuth", event = "BufReadPre" },
   { "farmergreg/vim-lastplace", lazy = false },
   { "tpope/vim-commentary", event = "BufReadPost" },
   { "tpope/vim-surround", event = "BufReadPost" },
@@ -30,7 +30,7 @@ return {
   }, {
     "folke/todo-comments.nvim",
     event = "VeryLazy",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
     opts = {
       keywords = {
         FIX = {
@@ -48,6 +48,14 @@ return {
           color = "test",
           alt = { "TESTING", "PASSED", "FAILED" }
         }
+      }
+    },
+    keys = {
+      {
+        "<leader>st",
+        function() vim.cmd("TodoTelescope") end,
+        "n",
+        desc = "[S]earch [T]odos"
       }
     }
   }

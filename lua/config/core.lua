@@ -52,10 +52,11 @@ vim.opt.fillchars = {
   fold = " ",
   foldsep = " ",
   diff = "╱",
-  eob = " ",
+  eob = " "
 }
 vim.opt.grepformat = "%f:%l:%c:%m"
 vim.opt.grepprg = "rg --vimgrep"
+vim.opt.shortmess:append({ W = true, I = true, c = true, C = true })
 
 vim.cmd("filetype plugin on")
 vim.cmd("filetype plugin indent on")
@@ -129,6 +130,3 @@ vim.api.nvim_create_autocmd("FileType", {
     end, { silent = true, buffer = args.buf, desc = "[F]ormat [F]ile" })
   end
 })
-
--- -- Terminal mode options
--- vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true })

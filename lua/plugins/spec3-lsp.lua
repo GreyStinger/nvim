@@ -19,7 +19,6 @@ return {
                   return
                 end
               end
-
               client.config.settings.Lua =
                 vim.tbl_deep_extend('force', client.config.settings.Lua, {
                   runtime = {
@@ -114,5 +113,37 @@ return {
                                      { { name = 'buffer' } })
       }
     end
+  }, {
+    "lewis6991/hover.nvim",
+    event = "BufReadPost",
+    opts = {
+      init = function()
+        require("hover.providers.lsp")
+        require("hover.providers.diagnostic")
+        require("hover.providers.man")
+      end,
+      preview_opts = { border = "double" },
+      preview_window = false,
+      title = true
+    },
+    keys = {
+      { "K", function() require("hover").hover() end, "n", desc = "hover.nvim" },
+      {
+        "gK",
+        function() require("hover").hover_select() end,
+        "n",
+        desc = "hover.nvim (select)"
+      }, {
+        "<C-n>",
+        function() require("hover").hover_switch("next") end,
+        "n",
+        desc = "hover.nvim (next source)"
+      }, {
+        "<C-p>",
+        function() require("hover").hover_switch("next") end,
+        "n",
+        desc = "hover.nvim (previous source)"
+      }
+    }
   }
 }

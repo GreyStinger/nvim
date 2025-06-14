@@ -22,13 +22,20 @@ return {
     }
   }, {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons", "nvim-telescope/telescope-ui-select.nvim" },
     lazy = false,
     opts = { options = { theme = "catppuccin" } }
   }, {
     "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+    },
+    event = "VeryLazy",
     opts = {},
+    config = function(_, opts)
+      require("telescope").setup(opts)
+      require("telescope").load_extension("ui-select")
+    end,
     keys = {
       {
         "<leader>sh",
