@@ -10,7 +10,7 @@ return {
   opts = {
     flavour = "mocha",
     background = { light = "latte", dark = "mocha" },
-    transparent_background = false,
+    transparent_background = true,
     show_end_of_buffer = true,
     term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
     dim_inactive = {
