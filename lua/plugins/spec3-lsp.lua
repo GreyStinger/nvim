@@ -8,6 +8,7 @@ return {
         servers = {
           clangd = { settings = {} },
           nixd = { settings = {} },
+          astro = { settings = {} },
           lua_ls = {
             settings = { Lua = {} },
             on_init = function(client)
