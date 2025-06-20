@@ -146,5 +146,5 @@ return {
         desc = "hover.nvim (previous source)"
       }
     }
-  }
+  }, { "mrcjkb/rustaceanvim", version = '^6', lazy = false }
 }

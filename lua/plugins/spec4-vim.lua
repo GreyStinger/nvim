@@ -1,8 +1,8 @@
 return {
-  { "tpope/vim-sleuth", event = "BufReadPre" },
+  { "tpope/vim-sleuth", lazy = false },
   { "farmergreg/vim-lastplace", lazy = false },
   { "tpope/vim-commentary", event = "BufReadPost" },
-  { "tpope/vim-surround", event = "BufReadPost" },
+  { "tpope/vim-surround", lazy = false },
   { "tpope/vim-fugitive", event = "VeryLazy" }, {
     "machakann/vim-highlightedyank",
     event = "BufReadPost",
