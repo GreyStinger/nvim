@@ -3,8 +3,12 @@ return {
     "nvim-treesitter/nvim-treesitter",
     event = "BufReadPre",
     build = ":TSUpdate",
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+      vim.treesitter.language.register("html", "hbs")
+    end,
     opts = {
-      ensure_installed = { "nix", "c", "cpp", "cmake", "lua", "markdown" },
+      ensure_installed = { "nix", "c", "cpp", "cmake", "lua", "markdown", "html" },
       auto_install = true,
       ignore_install = { "v" },
       highlight = {
@@ -20,16 +24,16 @@ return {
         additional_vim_regex_highlighting = false
       }
     }
-  }, {
+  }, { "windwp/nvim-ts-autotag", event = "VeryLazy", opts = {} }, {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons", "nvim-telescope/telescope-ui-select.nvim" },
+    dependencies = {
+      "nvim-tree/nvim-web-devicons", "nvim-telescope/telescope-ui-select.nvim"
+    },
     lazy = false,
     opts = { options = { theme = "catppuccin" } }
   }, {
     "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim"
-    },
+    dependencies = { "nvim-lua/plenary.nvim" },
     event = "VeryLazy",
     opts = {},
     config = function(_, opts)
@@ -92,6 +96,19 @@ return {
         "<leader>sd",
         function() require('telescope.builtin').diagnostics() end,
         desc = "[S]earch [D]iagnostics"
+      }, {
+        "<leader>sm",
+        function() require('telescope.builtin').marks() end,
+        desc = "[S]earch [M]arks"
+      }, {
+        "<leader>sF",
+        function()
+          require("telescope.builtin").lsp_document_symbols({
+            symbols = 'function'
+          })
+        end,
+        "n",
+        desc = "[S]earch [F]unctions"
       }, {
         "<leader>sGb",
         function() require('telescope.builtin').git_status() end,

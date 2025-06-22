@@ -6,9 +6,21 @@ return {
     opts = function()
       return {
         servers = {
+          bashls = { settings = {} },
           clangd = { settings = {} },
           nixd = { settings = {} },
           astro = { settings = {} },
+          zls = { settings = {} },
+          pyright = {
+            settings = {
+              analysis = {
+                autoSearchPaths = true,
+                diagnosticMode = "openFilesOnly",
+                useLibraryCodeForTypes = true
+              }
+            },
+            root_dir = vim.fn.finddir(".git/..", vim.fn.expand("%:p:h") .. ";")
+          },
           lua_ls = {
             settings = { Lua = {} },
             on_init = function(client)
@@ -86,6 +98,9 @@ return {
       }
     }
   }, {
+    "p00f/clangd_extensions.nvim",
+    event = "VeryLazy"
+  }, {
     "hrsh7th/nvim-cmp",
     event = "BufReadPost",
     dependencies = {
@@ -116,7 +131,7 @@ return {
     end
   }, {
     "lewis6991/hover.nvim",
-    event = "BufReadPost",
+    lazy = false;
     opts = {
       init = function()
         require("hover.providers.lsp")

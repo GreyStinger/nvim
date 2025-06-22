@@ -1,11 +1,21 @@
 return {
   { "wakatime/vim-wakatime", lazy = false }, {
+    "Hashino/doing.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      { "<leader>da", function() require("doing").add() end, {} },
+      { "<leader>dn", function() require("doing").done() end, {} },
+      { "<leader>de", function() require("doing").edit() end, {} }
+    }
+  }, {
     'stevearc/conform.nvim',
     event = "VeryLazy",
     opts = function()
       local formatters_by_ft = {
         lua = { "lua-format" },
         nix = { "nixfmt" },
+        python = { "autopep8" },
         rust = { "rustfmt", lsp_format = "fallback" }
       }
 
