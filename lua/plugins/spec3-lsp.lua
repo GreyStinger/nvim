@@ -9,8 +9,10 @@ return {
           bashls = { settings = {} },
           clangd = { settings = {} },
           nixd = { settings = {} },
+          hls = { settings = {} },
           astro = { settings = {} },
           zls = { settings = {} },
+          html = { settings = {}, filetypes = { "html", "templ", "handlebars" } },
           pyright = {
             settings = {
               analysis = {
@@ -52,7 +54,7 @@ return {
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       for server, config in pairs(opts.servers) do
         config.capabilities = capabilities
-        vim.lsp.enable(server)
+        -- vim.lsp.enable(server)
         vim.lsp.config(server, config)
       end
     end,
@@ -97,10 +99,7 @@ return {
         desc = "list all outgoing calls"
       }
     }
-  }, {
-    "p00f/clangd_extensions.nvim",
-    event = "VeryLazy"
-  }, {
+  }, { "p00f/clangd_extensions.nvim", event = "VeryLazy" }, {
     "hrsh7th/nvim-cmp",
     event = "BufReadPost",
     dependencies = {
@@ -131,7 +130,7 @@ return {
     end
   }, {
     "lewis6991/hover.nvim",
-    lazy = false;
+    lazy = false,
     opts = {
       init = function()
         require("hover.providers.lsp")
