@@ -12,6 +12,7 @@ return {
           hls = { settings = {} },
           astro = { settings = {} },
           zls = { settings = {} },
+          protols = { settings = {} },
           html = { settings = {}, filetypes = { "html", "templ", "handlebars" } },
           pyright = {
             settings = {
