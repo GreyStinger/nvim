@@ -17,7 +17,8 @@ return {
         lua = { "lua-format" },
         nix = { "nixfmt" },
         python = { "autopep8" },
-        rust = { "rustfmt", lsp_format = "fallback" }
+        rust = { "rustfmt", lsp_format = "fallback" },
+        zig = { "zigfmt" }
       }
 
       for _, ft in ipairs({ "c", "h", "cc", "cpp", "hpp", "cxx", "hxx" }) do
