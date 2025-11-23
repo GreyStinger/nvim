@@ -8,13 +8,25 @@ return {
       vim.treesitter.language.register("html", "hbs")
     end,
     opts = {
-      ensure_installed = { "nix", "c", "cpp", "cmake", "lua", "markdown", "html" },
+      ensure_installed = { "python", "nix", "c", "cpp", "cmake", "lua", "markdown", "html" },
       auto_install = true,
       ignore_install = { "v" },
+      textobjects = {
+        select = {
+          enable = true,
+          lookahead = true, -- Automatically jump forward to textobj
+          keymaps = {
+            ["af"] = "@function.outer",
+            ["if"] = "@function.inner",
+            ["ac"] = "@class.outer",
+            ["ic"] = "@class.inner",
+          },
+        },
+      },
       highlight = {
         enable = true,
         disable = function(lang, buf)
-          local max_filesize = 100 * 1024 -- 100 KB
+          local max_filesize = 1000 * 1024 -- 1 MiB
           local ok, stats = pcall(vim.loop.fs_stat,
                                   vim.api.nvim_buf_get_name(buf))
           if ok and stats and stats.size > max_filesize then
